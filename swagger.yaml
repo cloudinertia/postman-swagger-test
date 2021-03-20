@@ -7,7 +7,7 @@ servers:
 paths:
   /ethereum/wallets/{walletId}/transfer:
     post:
-        summary: 'Sample endpoint: Returns details about a particular user'
+        summary: 'change summary!!!'
         operationId: listUser
         tags:
             - user
@@ -21,11 +21,6 @@ paths:
         responses:
             '200':
                 description: 'TransferResponse'
-                headers:
-                    x-next:
-                        description: A link to the next page of responses
-                        schema:
-                            type: string
                 content:
                     application/json:
                         schema:
