@@ -7,7 +7,7 @@ servers:
 paths:
   /ethereum/wallets/{walletId}/transfer:
     post:
-        summary: 'change summary!!!'
+        summary: 'another change'
         operationId: listUser
         tags:
             - user
