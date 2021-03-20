@@ -1,0 +1,90 @@
+openapi: 3.0.0
+info:
+  version: v3
+  title: enclave api
+servers:
+  - url: 'http://localhost:3000/api/v3'
+paths:
+  /ethereum/wallets/{walletId}/transfer:
+    post:
+        summary: 'Sample endpoint: Returns details about a particular user'
+        operationId: listUser
+        tags:
+            - user
+        requestBody:
+            description: transfer request
+            required: true
+            content:
+                application/json:
+                    schema:
+                        $ref: '#/components/schemas/TransferRequest'
+        responses:
+            '200':
+                description: 'TransferResponse'
+                headers:
+                    x-next:
+                        description: A link to the next page of responses
+                        schema:
+                            type: string
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/TransferResponse'
+            default:
+                description: Unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    TransferRequest:
+        type: object
+        required:
+        - ticker
+        - to
+        - amount
+        - passphrase
+        properties:
+            ticker:
+                type: string
+            to:
+                type: string
+            amount:
+                type: string
+            passphrase:
+                type: string
+            gasPrice: 
+                type: string
+            gasLimit:
+                type: string
+    TransferResponse:
+        type: object
+        properties:
+            id:
+                type: string
+                example: "transactionID"
+                description: "트랜잭션 ID (Henesis Wallet에서 부여하는 트랜잭션의 고유 ID입니다. 온체인상 트랜잭션 해시와 다른 개념입니다.)"
+            blockchain:
+                type: string
+                example: ETHEREUM
+                description: "블록체인 플랫폼"
+            status:
+                type: string
+                example: "REQUESTED"
+                description: "트랜잭션 상태"
+            createdAt:
+                type: string
+                example: "1616223028"
+                description: "트랜잭션 생성 시간 (단위: ms, UNIX time)"
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
